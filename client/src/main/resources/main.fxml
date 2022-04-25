@@ -71,7 +71,7 @@
                                 </HBox>
                                 <ImageView fx:id="FlowerImg" fitHeight="185.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../../../../../images/purple.jpg" />
+                                        <Image url="@images/purple.jpg" />
                                     </image>
                                 </ImageView>
                             </children>
@@ -102,7 +102,7 @@
                                 </Label>
                                 <ImageView fitHeight="18.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@images/cart.png" />
+                                        <Image url="@/images/cart.png" />
                                     </image></ImageView>
                             </children>
                         </HBox>

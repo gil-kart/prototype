@@ -1,6 +1,11 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
+import com.mysql.cj.Session;
+
 import java.io.IOException;
+
+
+
 
 /**
  * Hello world!
@@ -14,5 +19,6 @@ public class App
     {
         server = new SimpleServer(3000);
         server.listen();
+
     }
 }
