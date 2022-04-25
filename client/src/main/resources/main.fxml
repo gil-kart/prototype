@@ -71,7 +71,7 @@
                                 </HBox>
                                 <ImageView fx:id="FlowerImg" fitHeight="185.0" fitWidth="140.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../../../../../target/classes/images/purple.jpg" />
+                                        <Image url="@../../../../../../images/purple.jpg" />
                                     </image>
                                 </ImageView>
                             </children>
@@ -102,7 +102,7 @@
                                 </Label>
                                 <ImageView fitHeight="18.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../../resources/images/cart.png" />
+                                        <Image url="@images/cart.png" />
                                     </image></ImageView>
                             </children>
                         </HBox>
@@ -114,7 +114,7 @@
                                             <children>
                                                 <ImageView fitHeight="51.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
-                                                        <Image url="@../../../resources/images/pngwing.com.png" />
+                                                        <Image url="@images/pngwing.com.png" />
                                                     </image>
                                                 </ImageView>
                                                 <VBox prefHeight="57.0" prefWidth="120.0">
@@ -146,7 +146,7 @@
                                                 <Pane prefHeight="57.0" prefWidth="19.0" />
                                                 <ImageView fitHeight="51.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
-                                                        <Image url="@../../../resources/images/pngwing.com.png" />
+                                                        <Image url="@images/pngwing.com.png" />
                                                     </image>
                                                 </ImageView>
                                                 <VBox alignment="CENTER" prefHeight="57.0" prefWidth="120.0">
@@ -178,7 +178,7 @@
                                     <Pane prefHeight="57.0" prefWidth="19.0" />
                                     <ImageView fitHeight="51.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../resources/images/pngwing.com.png" />
+                                          <Image url="@images/pngwing.com.png" />
                                        </image>
                                     </ImageView>
                                     <VBox alignment="CENTER" prefHeight="57.0" prefWidth="120.0">

@@ -21,7 +21,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class primaryController implements Initializable {
-    final String base_path = "src/main/resources/images/";
+    final String base_path = "/images/";
 
 
     @FXML
@@ -103,7 +103,13 @@ public class primaryController implements Initializable {
     public void setChosenItem(Flower flower) {
         FlowerNameLabel.setText(flower.getName());
         FlowerPrice.setText(flower.getPrice());
-        FlowerImg.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(flower.getImgSrc()))));
+        try{
+            FlowerImg.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(flower.getImgSrc()))));
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
     }
 
     Boolean is_init = false;
