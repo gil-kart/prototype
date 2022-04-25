@@ -54,6 +54,7 @@ public class SimpleServer extends AbstractServer {
 				//todo
 				// -------- update product in catalog table --------
 
+
 			}
 			catch (Exception exception) {
 				if (session != null) {
