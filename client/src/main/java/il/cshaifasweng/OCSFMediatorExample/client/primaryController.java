@@ -45,59 +45,58 @@ public class primaryController implements Initializable {
     private MyListener myListener;
     private List<Flower> flowerList = new ArrayList<>();
 
-    private List<Flower> getFlowerList() {
-        List<Flower> flowerList = new ArrayList<>();
-        Flower flower;
-        for (int i = 0; i < 5; i++) {
-            flower = new Flower();
-            flower.setName("סחלב קורל");
-            flower.setColor("סגול");
-            flower.setImgSrc(base_path + "sahlav_coral.jpg");
-            flower.setPrice("100 ש''ח");
-            flowerList.add(flower);
-
-            flower = new Flower();
-            flower.setName("ורד ענבר");
-            flower.setColor("ירוק");
-            flower.setImgSrc(base_path + "vered_inbar.jpg");
-            flower.setPrice("80 ש''ח");
-            flowerList.add(flower);
-
-            flower = new Flower();
-            flower.setName("סחלב לבן");
-            flower.setColor("ירוק");
-            flower.setImgSrc(base_path + "sahlav_lavan.jpg");
-            flower.setPrice("120 ש''ח");
-            flowerList.add(flower);
-
-            flower = new Flower();
-            flower.setName("סחלב סגול");
-            flower.setColor("ירוק");
-            flower.setImgSrc(base_path + "purple.jpg");
-            flower.setPrice("60 ש''ח");
-            flowerList.add(flower);
-
-            flower = new Flower();
-            flower.setName("נרקיס חצוצרה");
-            flower.setColor("ירוק");
-            flower.setImgSrc(base_path + "narkis_hatsostra.jpg");
-            flower.setPrice("40 ש''ח");
-            flowerList.add(flower);
-
-            flower = new Flower();
-            flower.setName("ורד ורוד");
-            flower.setColor("ירוק");
-            flower.setImgSrc(base_path + "vered_varod.jpg");
-            flower.setPrice("140 ש''ח");
-            flowerList.add(flower);
-        }
-        return flowerList;
-    }
+//    private List<Flower> getFlowerList() {
+//        List<Flower> flowerList = new ArrayList<>();
+//        Flower flower;
+//        for (int i = 0; i < 5; i++) {
+//            flower = new Flower();
+//            flower.setName("סחלב קורל");
+//            flower.setColor("סגול");
+//            flower.setImgSrc(base_path + "sahlav_coral.jpg");
+//            flower.setPrice("100 ש''ח");
+//            flowerList.add(flower);
+//
+//            flower = new Flower();
+//            flower.setName("ורד ענבר");
+//            flower.setColor("ירוק");
+//            flower.setImgSrc(base_path + "vered_inbar.jpg");
+//            flower.setPrice("80 ש''ח");
+//            flowerList.add(flower);
+//
+//            flower = new Flower();
+//            flower.setName("סחלב לבן");
+//            flower.setColor("ירוק");
+//            flower.setImgSrc(base_path + "sahlav_lavan.jpg");
+//            flower.setPrice("120 ש''ח");
+//            flowerList.add(flower);
+//
+//            flower = new Flower();
+//            flower.setName("סחלב סגול");
+//            flower.setColor("ירוק");
+//            flower.setImgSrc(base_path + "purple.jpg");
+//            flower.setPrice("60 ש''ח");
+//            flowerList.add(flower);
+//
+//            flower = new Flower();
+//            flower.setName("נרקיס חצוצרה");
+//            flower.setColor("ירוק");
+//            flower.setImgSrc(base_path + "narkis_hatsostra.jpg");
+//            flower.setPrice("40 ש''ח");
+//            flowerList.add(flower);
+//
+//            flower = new Flower();
+//            flower.setName("ורד ורוד");
+//            flower.setColor("ירוק");
+//            flower.setImgSrc(base_path + "vered_varod.jpg");
+//            flower.setPrice("140 ש''ח");
+//            flowerList.add(flower);
+//        }
+//        return flowerList;
+//    }
 
 
     @FXML
     void initialize() {
-
     }
 
     public void setChosenItem(Flower flower) {
@@ -123,12 +122,14 @@ public class primaryController implements Initializable {
                 Thread.sleep(300);
             }
             List<Item> items = client.getItems();
+            addItemsToFlowerList(items);
+            int zap = 0;
         }
         catch (Exception e){
             System.out.println(e.getMessage());
         }
 
-        flowerList.addAll(getFlowerList());
+       // flowerList.addAll(getFlowerList());
         if (flowerList.size() > 0) {
             setChosenItem(flowerList.get(0));
             myListener = new MyListener() {
@@ -170,4 +171,13 @@ public class primaryController implements Initializable {
         }
 
     }
-}
+
+        private void addItemsToFlowerList(List<Item> items) {
+            List<Flower> retFlowerList = new ArrayList<>();;
+            for(int i=0; i < items.size(); i++){
+                Item curItem = items.get(i);
+                retFlowerList.add(new Flower(curItem.getName(), " ש''ח" + String.valueOf(curItem.getPrice()), curItem.getImage()));
+            }
+            flowerList.addAll(retFlowerList);
+        }
+    }
