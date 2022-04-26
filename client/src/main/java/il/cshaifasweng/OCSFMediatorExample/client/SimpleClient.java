@@ -7,6 +7,7 @@ import org.greenrobot.eventbus.EventBus;
 import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleClient extends AbstractClient {
@@ -19,14 +20,13 @@ public class SimpleClient extends AbstractClient {
 
 	@Override
 	protected void handleMessageFromServer(Object msg) {
-		if (msg.getClass().equals(Warning.class)) {
-			EventBus.getDefault().post(new WarningEvent((Warning) msg));
-		}
-		//System.out.println("I sent something!");
-//		else if (msg.getClass().equals(List<Item>.class)){
+//		if (msg.getClass().equals(Warning.class)) {
+//			EventBus.getDefault().post(new WarningEvent((Warning) msg));
+//		}
+//		else (msg.getClass().equals(List<Item>.class)){
 //			System.out.println("SDAFLKJSADF");
 //		}
-
+		List<Item> items = (List<Item>)(msg);
 	}
 	
 	public static SimpleClient getClient() {
