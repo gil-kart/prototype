@@ -40,13 +40,15 @@ public class SimpleServer extends AbstractServer {
 			}
 		}
 		if(msgString.equals("getCatalog")){
+			try {
+			System.out.println("Got massage get catalog!");
 			CriteriaBuilder builder = session.getCriteriaBuilder();
 			CriteriaQuery<Item> query = builder.createQuery(Item.class);
 			query.from(Item.class);
 			List<Item> data = session.createQuery(query).getResultList();
-			try {
+			System.out.format("Sent catalog to client %s\n", client.getInetAddress().getHostAddress());
+
 				client.sendToClient(data);
-				System.out.format("Sent catalog to client %s\n", client.getInetAddress().getHostAddress());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
