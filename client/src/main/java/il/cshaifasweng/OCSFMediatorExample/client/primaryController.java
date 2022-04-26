@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.Item;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,10 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
-
+    //todo inherit from abstract client to handle massages to server
 public class primaryController implements Initializable {
     final String base_path = "/images/";
-
 
     @FXML
     private ImageView FlowerImg;
@@ -111,11 +111,23 @@ public class primaryController implements Initializable {
         }
 
     }
-
-    Boolean is_init = false;
-
+        private SimpleClient client;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        try {
+            client = SimpleClient.getClient();
+            client.openConnection();
+            client.sendToServer("getCatalog");
+            while (!client.isDataReady()){
+                Thread.sleep(300);
+            }
+            List<Item> items = client.getItems();
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
         flowerList.addAll(getFlowerList());
         if (flowerList.size() > 0) {
             setChosenItem(flowerList.get(0));

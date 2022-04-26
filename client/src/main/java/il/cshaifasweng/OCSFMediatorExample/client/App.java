@@ -14,7 +14,7 @@ import java.io.IOException;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
+//todo: find somewhere to reinstate connection if down. (retries? maybe through connectionexception hook?)
 /**
  * JavaFX App
  */
@@ -24,14 +24,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
     	EventBus.getDefault().register(this);
-    	try {
-            client = SimpleClient.getClient();
-            client.openConnection();
-            client.sendToServer("getCatalog");
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+
 
         scene = new Scene(loadFXML("main"));
         stage.setScene(scene);

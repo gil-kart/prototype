@@ -14,6 +14,17 @@ public class SimpleClient extends AbstractClient {
 	
 	private static SimpleClient client = null;
 
+	public List<Item> getItems() {
+		List<Item> temp = List.copyOf(items);
+		items.clear();
+		return temp;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+
+	List<Item> items = new ArrayList<>();
 	private SimpleClient(String host, int port) {
 		super(host, port);
 	}
@@ -26,9 +37,13 @@ public class SimpleClient extends AbstractClient {
 //		else (msg.getClass().equals(List<Item>.class)){
 //			System.out.println("SDAFLKJSADF");
 //		}
-		List<Item> items = (List<Item>)(msg);
+		setItems((List<Item>)(msg));
 	}
-	
+
+	public boolean isDataReady(){
+		return !this.items.isEmpty();
+	}
+
 	public static SimpleClient getClient() {
 		if (client == null) {
 			client = new SimpleClient("localhost", 3000);
