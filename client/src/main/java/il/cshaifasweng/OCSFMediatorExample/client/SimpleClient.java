@@ -1,9 +1,13 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.Catalog;
+import il.cshaifasweng.OCSFMediatorExample.entities.Item;
 import org.greenrobot.eventbus.EventBus;
 
 import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
+
+import java.util.List;
 
 public class SimpleClient extends AbstractClient {
 	
@@ -18,6 +22,10 @@ public class SimpleClient extends AbstractClient {
 		if (msg.getClass().equals(Warning.class)) {
 			EventBus.getDefault().post(new WarningEvent((Warning) msg));
 		}
+		//System.out.println("I sent something!");
+//		else if (msg.getClass().equals(List<Item>.class)){
+//			System.out.println("SDAFLKJSADF");
+//		}
 
 	}
 	

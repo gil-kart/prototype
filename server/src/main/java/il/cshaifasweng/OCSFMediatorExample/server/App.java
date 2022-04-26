@@ -5,14 +5,6 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Item;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import javax.persistence.*;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.HibernateException;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +52,7 @@ public class App {
 
     private static Catalog generateCatalog() {
 
-        Catalog catalog = new Catalog(1);
+        Catalog catalog = new Catalog();
         catalog.setItems(createItemList());
         return catalog;
 

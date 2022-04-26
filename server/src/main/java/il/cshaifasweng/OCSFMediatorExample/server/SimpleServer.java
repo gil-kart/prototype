@@ -1,18 +1,20 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.Catalog;
+import il.cshaifasweng.OCSFMediatorExample.entities.Item;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 
 import java.io.IOException;
+import java.util.List;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
 
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 import static il.cshaifasweng.OCSFMediatorExample.server.Utilities.getSessionFactory;
 
@@ -38,7 +40,16 @@ public class SimpleServer extends AbstractServer {
 			}
 		}
 		if(msgString.equals("getCatalog")){
-
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Item> query = builder.createQuery(Item.class);
+			query.from(Item.class);
+			List<Item> data = session.createQuery(query).getResultList();
+			try {
+				client.sendToClient(data);
+				System.out.format("Sent catalog to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		if(msgString.equals("updateProduct")){
 			try{
