@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+//import il.cshaifasweng.OCSFMediatorExample.entities.Catalog;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -18,15 +19,14 @@ import org.greenrobot.eventbus.Subscribe;
  * JavaFX App
  */
 public class App extends Application {
-
     private static Scene scene;
     private SimpleClient client;
-
     @Override
     public void start(Stage stage) throws IOException {
     	EventBus.getDefault().register(this);
     	client = SimpleClient.getClient();
     	client.openConnection();
+        client.sendToServer("getCatalog");
         scene = new Scene(loadFXML("main"));
         stage.setScene(scene);
         stage.show();
@@ -40,8 +40,6 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
-    
-    
 
     @Override
 	public void stop() throws Exception {
@@ -60,7 +58,6 @@ public class App extends Application {
         	);
         	alert.show();
     	});
-    	
     }
 
 	public static void main(String[] args) {

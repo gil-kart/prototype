@@ -14,24 +14,16 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import static il.cshaifasweng.OCSFMediatorExample.server.Utilities.getSessionFactory;
+
 public class SimpleServer extends AbstractServer {
+	private static Session session;
 
 	public SimpleServer(int port) {
 		super(port);
 		
 	}
-	private static Session session;
 
-	private static SessionFactory getSessionFactory() throws HibernateException {
-		Configuration configuration = new Configuration();
-		//configuration.addAnnotatedClass(Car.class).addAnnotatedClass(Owner.class).addAnnotatedClass(Garage.class).addAnnotatedClass(Image.class);
-
-		ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-				.applySettings(configuration.getProperties())
-				.build();
-
-		return configuration.buildSessionFactory(serviceRegistry);
-	}
 
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
@@ -45,16 +37,16 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 		}
+		if(msgString.equals("getCatalog")){
+
+		}
 		if(msgString.equals("updateProduct")){
 			try{
 				SessionFactory sessionFactory = getSessionFactory();
 				session = sessionFactory.openSession();
 				session.beginTransaction();
-
 				//todo
 				// -------- update product in catalog table --------
-
-
 			}
 			catch (Exception exception) {
 				if (session != null) {

@@ -1,10 +1,28 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "Items")
 public class Item {
-    private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "item_name")
+    private String name;
+
     private int price;
     private String image;
+
+    @ManyToOne
+    private Catalog catalog;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -14,12 +32,12 @@ public class Item {
         this.name = name;
     }
 
-    public int getId() {
-        return id;
-    }
+    public Item(String name, int price, String image) {
+        super();
+        this.name = name;
+        this.price = price;
+        this.image = image;
 
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getPrice() {
