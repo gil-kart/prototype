@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -28,7 +29,7 @@ import java.util.ResourceBundle;
 //todo inherit from abstract client to handle massages to server
 public class primaryController implements Initializable {
     final String base_path = "/images/";
-
+    private Flower flowerShown;
     @FXML
     private ImageView FlowerImg;
 
@@ -39,10 +40,24 @@ public class primaryController implements Initializable {
     private Label FlowerPrice;
 
     @FXML
+    private TextField textFieldPriceChange;
+
+    public Label getFlowerPrice() {
+        return FlowerPrice;
+    }
+
+    public void setFlowerPrice(Label flowerPrice) {
+        FlowerPrice = flowerPrice;
+    }
+
+    @FXML
     private VBox chosenFlower;
 
     @FXML
     private Button priceUpdate;
+
+    @FXML
+    private Button showPriceField;
 
     @FXML
     private GridPane grid;
@@ -50,6 +65,10 @@ public class primaryController implements Initializable {
     @FXML
     private ScrollPane scroll;
 
+    @FXML
+    private Label priceUpdateWarningLabel;
+
+    List<Item> items;
     private MyListener myListener;
     private List<Flower> flowerList = new ArrayList<>();
 
@@ -102,6 +121,7 @@ public class primaryController implements Initializable {
 //        return flowerList;
 //    }
 
+    List<ItemController> itemControllers = new ArrayList<>();
 
     @FXML
     void initialize() {
@@ -116,7 +136,7 @@ public class primaryController implements Initializable {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
+        flowerShown = flower;
     }
 
     private SimpleClient client;
@@ -154,8 +174,11 @@ public class primaryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<Item> items = null;
+
         try {
+            textFieldPriceChange.setVisible(false);
+            priceUpdateWarningLabel.setVisible(true);
+            priceUpdate.setVisible(false);
             client = SimpleClient.getClient();
             client.openConnection();
             client.sendToServer("getCatalog");
@@ -172,14 +195,10 @@ public class primaryController implements Initializable {
 
         if (flowerList.size() > 0) {
             setChosenItem(flowerList.get(0));
-            List<Item> finalItems = items;
             myListener = new MyListener() {
                 @Override
                 public void onClickListener(Flower flower) {
                     setChosenItem(flower);
-                    // for now, whenever you press a flower, you update its price for debugging
-                    flower.setPrice("9000");
-                    sendPriceUpdatedItem(flower, finalItems);
                 }
             };
         }
@@ -191,8 +210,8 @@ public class primaryController implements Initializable {
                 fxmlLoader.setLocation(getClass().getResource("Item.fxml"));
                 AnchorPane anchorPane = fxmlLoader.load();
 
-
                 ItemController itemController = fxmlLoader.getController();
+                itemControllers.add(itemController);
                 itemController.setData(flower, myListener);
                 if (column == 3) {
                     column = 0;
@@ -220,24 +239,41 @@ public class primaryController implements Initializable {
         ;
         for (int i = 0; i < items.size(); i++) {
             Item curItem = items.get(i);
-            retFlowerList.add(new Flower(curItem.getName(), Integer.toString(curItem.getPrice()) + " ש\"ח ", curItem.getImage(), curItem.getId()));
+            retFlowerList.add(new Flower(curItem.getName(), String.valueOf(curItem.getPrice()) + " ש''ח", curItem.getImage(), curItem.getId()));
         }
         flowerList.addAll(retFlowerList);
     }
 
     @FXML
+    void onChangePrice(ActionEvent event) {
+        textFieldPriceChange.setVisible(true);
+        priceUpdate.setVisible(true);
+    }
+
+    @FXML
     void onPriceUpdate(ActionEvent event) {
         try {
-            URL url = getClass().getResource("UpdatePrice.fxml");
-            Scene scene = new Scene(FXMLLoader.load(url));
-            Stage stage = new Stage();
-            System.out.println("jdfkh");
-            stage.setTitle("עדכון מחיר מוצר");
-            stage.setScene(scene);
-            stage.show();
+            String newPrice;
+            newPrice = (textFieldPriceChange.getText());
+            try {
+                int new_converted_price = Integer.parseInt(newPrice, 10); // convert to base 10
+                flowerShown.setPrice(newPrice);
+                FlowerPrice.setText(newPrice + " ש\"ח ");
+                ItemController itemController = itemControllers.get(flowerShown.getId() - 1);
+                itemController.setPriceInCatalog(flowerShown);
+                textFieldPriceChange.clear();
+                textFieldPriceChange.setVisible(false);
+                priceUpdate.setVisible(false);
+                sendPriceUpdatedItem(flowerShown, items);
 
-        } catch (IOException e) {
+            } catch (NumberFormatException e) {
+                textFieldPriceChange.clear();
+                priceUpdateWarningLabel.setVisible(true);
+            }
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 }
+
