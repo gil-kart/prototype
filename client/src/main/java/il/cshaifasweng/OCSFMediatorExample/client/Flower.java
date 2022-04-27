@@ -3,17 +3,21 @@ package il.cshaifasweng.OCSFMediatorExample.client;
 public class Flower {
     public Flower(){}
 
-    public Flower(String name, String price, String imgSrc) {
+    public Flower(String name, String price, String imgSrc, int id) {
         this.name = name;
         this.price = price;
         this.imgSrc = imgSrc;
+        this.id = id;
     }
-
+    private int id;
     private String name;
     private String price;
     private String imgSrc;
     private String color;
 
+    public int getId() {
+        return id;
+    }
 
     public String getName() {
         return name;

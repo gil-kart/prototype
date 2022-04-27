@@ -43,4 +43,11 @@ public class ItemController {
     public void click(javafx.scene.input.MouseEvent mouseEvent) {
         myListener.onClickListener(flower);
     }
+
+    void setPriceInCatalog(Flower flower){
+        this.flower.setPrice(flower.getPrice());
+        Price.setText(flower.getPrice()+ " ש\"ח ");
+
+
+    }
 }
