@@ -39,7 +39,7 @@ public class App {
     private static List<Item> createItemList() {
         Item item;
         List<Item> itemList = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+    //    for (int i = 0; i < 5; i++) {
             String base_path = "/images/";
             item = new Item("סחלב קורל", 160, base_path + "sahlav_coral.jpg");
             itemList.add(item);
@@ -50,7 +50,7 @@ public class App {
             item = new Item("נרקיס חצוצרה", 110, base_path + "narkis_hatsostra.jpg");
             itemList.add(item);
 
-        }
+       // }
         return itemList;
     }
 }

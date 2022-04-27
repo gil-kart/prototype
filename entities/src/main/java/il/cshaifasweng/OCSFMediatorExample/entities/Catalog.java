@@ -10,7 +10,7 @@ public class Catalog {
     private int id;
 
 
-    @OneToMany(mappedBy = "catalog", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Item> items;
 
     public int getId() {
