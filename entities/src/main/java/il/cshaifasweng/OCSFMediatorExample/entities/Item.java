@@ -5,6 +5,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "Items")
 public class Item implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -16,6 +17,11 @@ public class Item implements Serializable {
 
     @ManyToOne
     private Catalog catalog;
+
+
+    private Item() {
+        //System.out.println("Item created!");
+    }
 
     public int getId() {
         return id;

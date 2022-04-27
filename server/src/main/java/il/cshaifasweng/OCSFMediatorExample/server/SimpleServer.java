@@ -43,33 +43,35 @@ public class SimpleServer extends AbstractServer {
             }
         }
         if (msgString.equals("getCatalog")) {
-            try {
-                System.out.println("Got massage get catalog!");
-                System.out.println("SERVER: BUILDING CATALOG");
+//            try {
+//                System.out.println("Got massage get catalog!");
+//                System.out.println("SERVER: BUILDING CATALOG");
+//                session = SF.openSession();
+//                session.beginTransaction();
+//                Catalog catalog = generateCatalog();
+//                session.save(catalog);
+//                session.flush();
+//                System.out.println("SERVER: DONE BUILDING CATALOG");
+//                session.getTransaction().commit(); // Save everything.
+//            } catch (Exception exception) {
+//                if (session != null) {
+//                    session.getTransaction().rollback();
+//                }
+//                System.err.println("An error occured, changes have been rolled back.");
+//                exception.printStackTrace();
+//            } finally {
+//                if (session != null)
+//                    try {
+////                        session.close();
+//                        System.out.println("SERVER: CLOSED SESSION.");
+//                    } catch (Exception e) {
+//                        System.out.println(e.getMessage());
+//                    }
+//            }
+            try{
+//                assert session != null;
                 session = SF.openSession();
                 session.beginTransaction();
-                Catalog catalog = generateCatalog();
-                session.save(catalog);
-                session.flush();
-                System.out.println("SERVER: DONE BUILDING CATALOG");
-                session.getTransaction().commit(); // Save everything.
-            } catch (Exception exception) {
-                if (session != null) {
-                    session.getTransaction().rollback();
-                }
-                System.err.println("An error occured, changes have been rolled back.");
-                exception.printStackTrace();
-            } finally {
-                if (session != null)
-                    try {
-//                        session.close();
-                        System.out.println("SERVER: CLOSED SESSION.");
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-            }
-            try{
-                assert session != null;
                 CriteriaBuilder builder = session.getCriteriaBuilder();
                 CriteriaQuery<Item> query = builder.createQuery(Item.class);
                 query.from(Item.class);
