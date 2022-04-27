@@ -55,14 +55,19 @@
                             <children>
                                 <HBox prefHeight="71.0" prefWidth="264.0">
                                     <children>
-                                        <Label fx:id="FlowerPrice" alignment="CENTER_RIGHT" prefHeight="72.0" prefWidth="141.0" text="130 ש&quot;ח">
+                              <Label fx:id="FlowerPrice1" alignment="CENTER" prefHeight="81.0" prefWidth="87.0" text="ש&quot;ח">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                                        <Label fx:id="FlowerPrice" prefHeight="75.0" prefWidth="113.0" text="130">
                                             <font>
-                                                <Font size="23.0" />
+                                                <Font size="18.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="FlowerNameLabel" alignment="CENTER_RIGHT" prefHeight="72.0" prefWidth="162.0" text="סחלב סגול">
+                                        <Label fx:id="FlowerNameLabel" contentDisplay="CENTER" prefHeight="72.0" prefWidth="162.0" text="סחלב סגול">
                                             <font>
-                                                <Font size="23.0" />
+                                                <Font size="18.0" />
                                             </font>
                                         </Label>
                                     </children>

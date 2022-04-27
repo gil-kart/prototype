@@ -15,7 +15,8 @@
             <children>
                 <HBox alignment="TOP_CENTER" prefHeight="41.0" prefWidth="142.0">
                     <children>
-                        <Label fx:id="Price" text="70 ש&quot;ח">
+                  <Label fx:id="Price1" text="ש&quot;ח" />
+                        <Label fx:id="Price" text="70">
                             <HBox.margin>
                                 <Insets left="3.0" />
                             </HBox.margin>

@@ -27,7 +27,9 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 //todo inherit from abstract client to handle massages to server
-public class primaryController implements Initializable {
+public class
+
+primaryController implements Initializable {
     final String base_path = "/images/";
     private Flower flowerShown;
     @FXML
@@ -239,7 +241,7 @@ public class primaryController implements Initializable {
         ;
         for (int i = 0; i < items.size(); i++) {
             Item curItem = items.get(i);
-            retFlowerList.add(new Flower(curItem.getName(), String.valueOf(curItem.getPrice()) + " ש''ח", curItem.getImage(), curItem.getId()));
+            retFlowerList.add(new Flower(curItem.getName(), String.valueOf(curItem.getPrice()), curItem.getImage(), curItem.getId()));
         }
         flowerList.addAll(retFlowerList);
     }
@@ -258,7 +260,7 @@ public class primaryController implements Initializable {
             try {
                 int new_converted_price = Integer.parseInt(newPrice, 10); // convert to base 10
                 flowerShown.setPrice(newPrice);
-                FlowerPrice.setText(newPrice + " ש\"ח ");
+                FlowerPrice.setText(newPrice );
                 ItemController itemController = itemControllers.get(flowerShown.getId() - 1);
                 itemController.setPriceInCatalog(flowerShown);
                 textFieldPriceChange.clear();
@@ -266,6 +268,7 @@ public class primaryController implements Initializable {
                 priceUpdate.setVisible(false);
                 priceUpdateWarningLabel.setVisible(false);
                 sendPriceUpdatedItem(flowerShown, items);
+
 
             } catch (NumberFormatException e) {
                 textFieldPriceChange.clear();

@@ -46,7 +46,10 @@ public class ItemController {
 
     void setPriceInCatalog(Flower flower){
         this.flower.setPrice(flower.getPrice());
-        Price.setText(flower.getPrice()+ " ש\"ח ");
+        Price.setText(flower.getPrice() );
+
+
+
 
 
     }
