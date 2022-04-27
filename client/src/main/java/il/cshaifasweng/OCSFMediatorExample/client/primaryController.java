@@ -177,7 +177,7 @@ public class primaryController implements Initializable {
 
         try {
             textFieldPriceChange.setVisible(false);
-            priceUpdateWarningLabel.setVisible(true);
+            priceUpdateWarningLabel.setVisible(false);
             priceUpdate.setVisible(false);
             client = SimpleClient.getClient();
             client.openConnection();
@@ -264,6 +264,7 @@ public class primaryController implements Initializable {
                 textFieldPriceChange.clear();
                 textFieldPriceChange.setVisible(false);
                 priceUpdate.setVisible(false);
+                priceUpdateWarningLabel.setVisible(false);
                 sendPriceUpdatedItem(flowerShown, items);
 
             } catch (NumberFormatException e) {
