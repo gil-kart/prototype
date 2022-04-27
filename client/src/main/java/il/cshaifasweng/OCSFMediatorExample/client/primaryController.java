@@ -172,14 +172,10 @@ public class primaryController implements Initializable {
 
         if (flowerList.size() > 0) {
             setChosenItem(flowerList.get(0));
-            List<Item> finalItems = items;
             myListener = new MyListener() {
                 @Override
                 public void onClickListener(Flower flower) {
                     setChosenItem(flower);
-                    // for now, whenever you press a flower, you update its price for debugging
-                    flower.setPrice("9000");
-                    sendPriceUpdatedItem(flower, finalItems);
                 }
             };
         }
@@ -225,13 +221,13 @@ public class primaryController implements Initializable {
         flowerList.addAll(retFlowerList);
     }
 
+
     @FXML
     void onPriceUpdate(ActionEvent event) {
         try {
             URL url = getClass().getResource("UpdatePrice.fxml");
             Scene scene = new Scene(FXMLLoader.load(url));
             Stage stage = new Stage();
-            System.out.println("jdfkh");
             stage.setTitle("עדכון מחיר מוצר");
             stage.setScene(scene);
             stage.show();
