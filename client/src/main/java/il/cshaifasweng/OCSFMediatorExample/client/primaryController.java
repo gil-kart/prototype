@@ -65,6 +65,10 @@ public class primaryController implements Initializable {
     @FXML
     private ScrollPane scroll;
 
+    @FXML
+    private Label priceUpdateWarningLabel;
+
+    List<Item> items;
     private MyListener myListener;
     private List<Flower> flowerList = new ArrayList<>();
 
@@ -173,6 +177,7 @@ public class primaryController implements Initializable {
 
         try {
             textFieldPriceChange.setVisible(false);
+            priceUpdateWarningLabel.setVisible(true);
             priceUpdate.setVisible(false);
             client = SimpleClient.getClient();
             client.openConnection();
@@ -180,7 +185,7 @@ public class primaryController implements Initializable {
             while (!client.isDataReady()) {
                 Thread.sleep(300);
             }
-            List<Item> items = client.getItems();
+            items = client.getItems();
             addItemsToFlowerList(items);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -256,27 +261,16 @@ public class primaryController implements Initializable {
                 FlowerPrice.setText(newPrice + " ש\"ח ");
                 ItemController itemController = itemControllers.get(flowerShown.getId() - 1);
                 itemController.setPriceInCatalog(flowerShown);
-                textFieldPriceChange.setText("");
+                textFieldPriceChange.clear();
                 textFieldPriceChange.setVisible(false);
                 priceUpdate.setVisible(false);
+                sendPriceUpdatedItem(flowerShown, items);
+
             } catch (NumberFormatException e) {
-                //handle exception
+                textFieldPriceChange.clear();
+                priceUpdateWarningLabel.setVisible(true);
             }
 
-
-////         if ENTER pressed
-// //               go to setPrice
-////
-////                URL url = getClass().getResource("UpdatePrice.fxml");
-////                Scene scene = new Scene( FXMLLoader.load(url));
-////                Stage stage = new Stage();
-////
-////                System.out.println("jdfkh");
-////                stage.setTitle("עדכון מחיר מוצר");
-////                stage.setScene(scene);
-////                stage.show();
-//
-//
         } catch (Exception e) {
             e.printStackTrace();
         }

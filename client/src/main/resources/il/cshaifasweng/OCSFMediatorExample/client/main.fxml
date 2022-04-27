@@ -89,8 +89,8 @@
                         <TextField fx:id="textFieldPriceChange" prefHeight="33.0" prefWidth="247.0" />
                         <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <Label alignment="CENTER" layoutX="62.0" layoutY="5.0" text="יש להכניס מספרים בלבד" textAlignment="CENTER" textFill="#c90000" />
-                              <Button fx:id="priceUpdate1" layoutX="80.0" layoutY="37.0" mnemonicParsing="false" onAction="#onPriceUpdate" prefHeight="31.0" prefWidth="86.0" text="אישור" />
+                              <Label fx:id="priceUpdateWarningLabel" alignment="CENTER" layoutX="62.0" layoutY="5.0" text="יש להכניס מספרים בלבד" textAlignment="CENTER" textFill="#c90000" />
+                              <Button fx:id="priceUpdate" layoutX="80.0" layoutY="37.0" mnemonicParsing="false" onAction="#onPriceUpdate" prefHeight="31.0" prefWidth="86.0" text="אישור" />
                            </children></AnchorPane>
                      </children>
                   </VBox>
