@@ -121,9 +121,40 @@ public class primaryController implements Initializable {
 
     private SimpleClient client;
 
+    void sendPriceUpdatedItem(Flower flower, List<Item> items) {
+        try {
+            //Item item = convertFlowerToItem(flower);
+            Item item = getItemById(flower, items);
+            client = SimpleClient.getClient();
+            client.openConnection();
+            client.sendToServer(item);
+            // todo: get server ok response that price was updated in DB, else do rollback/nothing?
+//            while (!client.isDataReady()) {
+//                Thread.sleep(300);
+//            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Item getItemById(Flower flower, List<Item> items) {
+        for (Item item : items) {
+            if (item.getId() == flower.getId()) {
+                item.setPrice(Integer.parseInt(flower.getPrice()));
+                return item;
+            }
+        }
+        // needs to be fixed!!!!
+        return items.get(0);
+    }
+
+    private Item convertFlowerToItem(Flower flower) {
+        return new Item(flower.getName(), Integer.parseInt(flower.getPrice()), flower.getImgSrc());
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        List<Item> items = null;
         try {
             client = SimpleClient.getClient();
             client.openConnection();
@@ -131,7 +162,7 @@ public class primaryController implements Initializable {
             while (!client.isDataReady()) {
                 Thread.sleep(300);
             }
-            List<Item> items = client.getItems();
+            items = client.getItems();
             addItemsToFlowerList(items);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -141,10 +172,14 @@ public class primaryController implements Initializable {
 
         if (flowerList.size() > 0) {
             setChosenItem(flowerList.get(0));
+            List<Item> finalItems = items;
             myListener = new MyListener() {
                 @Override
                 public void onClickListener(Flower flower) {
                     setChosenItem(flower);
+                    // for now, whenever you press a flower, you update its price for debugging
+                    flower.setPrice("9000");
+                    sendPriceUpdatedItem(flower, finalItems);
                 }
             };
         }
@@ -185,7 +220,7 @@ public class primaryController implements Initializable {
         ;
         for (int i = 0; i < items.size(); i++) {
             Item curItem = items.get(i);
-            retFlowerList.add(new Flower(curItem.getName(), Integer.toString(curItem.getPrice()) + " ש\"ח ", curItem.getImage(), 1));
+            retFlowerList.add(new Flower(curItem.getName(), Integer.toString(curItem.getPrice()) + " ש\"ח ", curItem.getImage(), curItem.getId()));
         }
         flowerList.addAll(retFlowerList);
     }

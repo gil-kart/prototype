@@ -32,7 +32,7 @@ public class SimpleServer extends AbstractServer {
 
     @Override
     protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
-        if(msg.getClass().equals(String.class)){
+        if (msg.getClass().equals(String.class)) {
             String msgString = msg.toString();
             if (msgString.startsWith("#warning")) {
                 Warning warning = new Warning("Warning from server!");
@@ -42,34 +42,33 @@ public class SimpleServer extends AbstractServer {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            } else if (msgString.equals("getCatalog")) {
+            try {
+                System.out.println("Got massage get catalog!");
+                System.out.println("SERVER: BUILDING CATALOG");
+                session = SF.openSession();
+                session.beginTransaction();
+                Catalog catalog = generateCatalog();
+                session.save(catalog);
+                session.flush();
+                System.out.println("SERVER: DONE BUILDING CATALOG");
+                session.getTransaction().commit(); // Save everything.
+            } catch (Exception exception) {
+                if (session != null) {
+                    session.getTransaction().rollback();
+                }
+                System.err.println("An error occured, changes have been rolled back.");
+                exception.printStackTrace();
+            } finally {
+                if (session != null)
+                    try {
+                        session.close();
+                        System.out.println("SERVER: CLOSED SESSION.");
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
             }
-            else if (msgString.equals("getCatalog")) {
-//            try {
-//                System.out.println("Got massage get catalog!");
-//                System.out.println("SERVER: BUILDING CATALOG");
-//                session = SF.openSession();
-//                session.beginTransaction();
-//                Catalog catalog = generateCatalog();
-//                session.save(catalog);
-//                session.flush();
-//                System.out.println("SERVER: DONE BUILDING CATALOG");
-//                session.getTransaction().commit(); // Save everything.
-//            } catch (Exception exception) {
-//                if (session != null) {
-//                    session.getTransaction().rollback();
-//                }
-//                System.err.println("An error occured, changes have been rolled back.");
-//                exception.printStackTrace();
-//            } finally {
-//                if (session != null)
-//                    try {
-////                        session.close();
-//                        System.out.println("SERVER: CLOSED SESSION.");
-//                    } catch (Exception e) {
-//                        System.out.println(e.getMessage());
-//                    }
-//            }
-                try{
+                try {
                     session = SF.openSession();
                     session.beginTransaction();
                     CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -78,7 +77,7 @@ public class SimpleServer extends AbstractServer {
                     List<Item> data = session.createQuery(query).getResultList();
                     System.out.format("Sent catalog to client %s\n", client.getInetAddress().getHostAddress());
                     client.sendToClient(new LinkedList<Item>(data));
-                }  catch (Exception exception) {
+                } catch (Exception exception) {
                     if (session != null) {
                         session.getTransaction().rollback();
                     }
@@ -104,15 +103,14 @@ public class SimpleServer extends AbstractServer {
                 session = SF.openSession();
                 session.beginTransaction();
 
-                Item item = getItemById((Item)(msg));
-                item.setPrice(((Item)(msg)).getPrice());
+                Item item = getItemById((Item) (msg));
+                item.setPrice(((Item) (msg)).getPrice());
                 session.save(item);
-
 
 
                 session.flush();
                 session.getTransaction().commit(); // Save everything.
-                System.out.println("product " + ((Item)(msg)).getName() + " was updated in catalog ");
+                System.out.println("product " + ((Item) (msg)).getName() + " was updated in catalog ");
 
             } catch (Exception exception) {
                 if (session != null) {
@@ -139,8 +137,8 @@ public class SimpleServer extends AbstractServer {
         CriteriaQuery<Item> query = builder.createQuery(Item.class);
         query.from(Item.class);
         List<Item> data = session.createQuery(query).getResultList();
-        for(Item item : data){
-            if(item.getId() == msg.getId()){
+        for (Item item : data) {
+            if (item.getId() == msg.getId()) {
                 return item;
             }
         }
