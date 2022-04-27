@@ -20,7 +20,6 @@ public class Item implements Serializable {
 
 
     private Item() {
-        //System.out.println("Item created!");
     }
 
     public int getId() {

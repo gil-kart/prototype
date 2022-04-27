@@ -79,6 +79,7 @@
                         <HBox alignment="CENTER" prefHeight="40.0" prefWidth="273.0">
                             <children>
                                 <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="107.0" text="הוספה לעגלה" />
+                        <Button fx:id="changePriceBtn" mnemonicParsing="false" onAction="#CahngePricePopup" prefHeight="33.0" prefWidth="103.0" text="שנה מחיר" />
                             </children>
                         </HBox>
                     </children>
