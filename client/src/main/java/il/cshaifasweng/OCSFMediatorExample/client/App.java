@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import javafx.stage.WindowEvent;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 //todo: find somewhere to reinstate connection if down. (retries? maybe through connectionexception hook?)
@@ -20,14 +21,12 @@ import org.greenrobot.eventbus.Subscribe;
  */
 public class App extends Application {
     private static Scene scene;
-    private SimpleClient client;
     @Override
     public void start(Stage stage) throws IOException {
     	EventBus.getDefault().register(this);
-
-
         scene = new Scene(loadFXML("main"));
         stage.setScene(scene);
+        stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeWindowEvent);
         stage.show();
     }
 
@@ -61,6 +60,11 @@ public class App extends Application {
 
 	public static void main(String[] args) {
         launch();
+    }
+
+    private void closeWindowEvent(WindowEvent event) {
+        System.out.println("Graceful termination, goodbye ;)");
+        System.exit(0);
     }
 
 }
