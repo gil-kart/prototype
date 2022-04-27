@@ -43,31 +43,32 @@ public class SimpleServer extends AbstractServer {
                     e.printStackTrace();
                 }
             } else if (msgString.equals("getCatalog")) {
-            try {
-                System.out.println("Got massage get catalog!");
-                System.out.println("SERVER: BUILDING CATALOG");
-                session = SF.openSession();
-                session.beginTransaction();
-                Catalog catalog = generateCatalog();
-                session.save(catalog);
-                session.flush();
-                System.out.println("SERVER: DONE BUILDING CATALOG");
-                session.getTransaction().commit(); // Save everything.
-            } catch (Exception exception) {
-                if (session != null) {
-                    session.getTransaction().rollback();
-                }
-                System.err.println("An error occured, changes have been rolled back.");
-                exception.printStackTrace();
-            } finally {
-                if (session != null)
-                    try {
-                        session.close();
-                        System.out.println("SERVER: CLOSED SESSION.");
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-            }
+                //todo: add catalog creation to a test function
+//            try {
+//                System.out.println("Got massage get catalog!");
+//                System.out.println("SERVER: BUILDING CATALOG");
+//                session = SF.openSession();
+//                session.beginTransaction();
+//                Catalog catalog = generateCatalog();
+//                session.save(catalog);
+//                session.flush();
+//                System.out.println("SERVER: DONE BUILDING CATALOG");
+//                session.getTransaction().commit(); // Save everything.
+//            } catch (Exception exception) {
+//                if (session != null) {
+//                    session.getTransaction().rollback();
+//                }
+//                System.err.println("An error occured, changes have been rolled back.");
+//                exception.printStackTrace();
+//            } finally {
+//                if (session != null)
+//                    try {
+//                        session.close();
+//                        System.out.println("SERVER: CLOSED SESSION.");
+//                    } catch (Exception e) {
+//                        System.out.println(e.getMessage());
+//                    }
+//            }
                 try {
                     session = SF.openSession();
                     session.beginTransaction();
