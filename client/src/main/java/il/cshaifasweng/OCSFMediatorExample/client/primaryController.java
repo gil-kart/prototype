@@ -1,19 +1,22 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Item;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -37,6 +40,9 @@ public class primaryController implements Initializable {
 
     @FXML
     private VBox chosenFlower;
+
+    @FXML
+    private Button priceUpdate;
 
     @FXML
     private GridPane grid;
@@ -115,41 +121,9 @@ public class primaryController implements Initializable {
 
     private SimpleClient client;
 
-    void sendPriceUpdatedItem(Flower flower, List<Item> items) {
-        try {
-            //Item item = convertFlowerToItem(flower);
-            Item item = getItemById(flower, items);
-            client = SimpleClient.getClient();
-            client.openConnection();
-            client.sendToServer(item);
-            // todo: get server ok response that price was updated in DB, else do rollback/nothing?
-//            while (!client.isDataReady()) {
-//                Thread.sleep(300);
-//            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private Item getItemById(Flower flower, List<Item> items) {
-        for(Item item : items){
-            if (item.getId() == flower.getId()){
-                item.setPrice(Integer.parseInt(flower.getPrice()));
-                return item;
-            }
-        }
-        // needs to be fixed!!!!
-        return items.get(0);
-    }
-
-    private Item convertFlowerToItem(Flower flower) {
-        return new Item(flower.getName(), Integer.parseInt(flower.getPrice()), flower.getImgSrc());
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<Item> items = null;
+
         try {
             client = SimpleClient.getClient();
             client.openConnection();
@@ -157,22 +131,20 @@ public class primaryController implements Initializable {
             while (!client.isDataReady()) {
                 Thread.sleep(300);
             }
-            items = client.getItems();
+            List<Item> items = client.getItems();
             addItemsToFlowerList(items);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
+        // flowerList.addAll(getFlowerList());
+
         if (flowerList.size() > 0) {
             setChosenItem(flowerList.get(0));
-            List<Item> finalItems = items;
             myListener = new MyListener() {
                 @Override
                 public void onClickListener(Flower flower) {
                     setChosenItem(flower);
-                    // for now, whenever you press a flower, you update its price for debugging
-//                    flower.setPrice("9000");
-//                    sendPriceUpdatedItem(flower, finalItems);
                 }
             };
         }
@@ -206,7 +178,6 @@ public class primaryController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private void addItemsToFlowerList(List<Item> items) {
@@ -214,8 +185,24 @@ public class primaryController implements Initializable {
         ;
         for (int i = 0; i < items.size(); i++) {
             Item curItem = items.get(i);
-            retFlowerList.add(new Flower(curItem.getName(), String.valueOf(curItem.getPrice()) + " ש''ח", curItem.getImage(), curItem.getId()));
+            retFlowerList.add(new Flower(curItem.getName(), Integer.toString(curItem.getPrice()) + " ש\"ח ", curItem.getImage(), 1));
         }
         flowerList.addAll(retFlowerList);
+    }
+
+    @FXML
+    void onPriceUpdate(ActionEvent event) {
+        try {
+            URL url = getClass().getResource("UpdatePrice.fxml");
+            Scene scene = new Scene(FXMLLoader.load(url));
+            Stage stage = new Stage();
+            System.out.println("jdfkh");
+            stage.setTitle("עדכון מחיר מוצר");
+            stage.setScene(scene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
