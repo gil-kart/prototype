@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
@@ -99,6 +100,9 @@ public class primaryController implements Initializable {
     void initialize() {
     }
 
+
+
+
     public void setChosenItem(Flower flower) {
         FlowerNameLabel.setText(flower.getName());
         FlowerPrice.setText(flower.getPrice());
@@ -110,7 +114,9 @@ public class primaryController implements Initializable {
         }
 
     }
-        private SimpleClient client;
+
+    private SimpleClient client;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -123,13 +129,13 @@ public class primaryController implements Initializable {
             }
             List<Item> items = client.getItems();
             addItemsToFlowerList(items);
-            int zap = 0;
         }
         catch (Exception e){
             System.out.println(e.getMessage());
         }
 
        // flowerList.addAll(getFlowerList());
+
         if (flowerList.size() > 0) {
             setChosenItem(flowerList.get(0));
             myListener = new MyListener() {
@@ -176,7 +182,7 @@ public class primaryController implements Initializable {
             List<Flower> retFlowerList = new ArrayList<>();;
             for(int i=0; i < items.size(); i++){
                 Item curItem = items.get(i);
-                retFlowerList.add(new Flower(curItem.getName(), " ש''ח" + String.valueOf(curItem.getPrice()), curItem.getImage()));
+                retFlowerList.add(new Flower(curItem.getName(), String.valueOf(curItem.getPrice()) + " ש''ח", curItem.getImage()));
             }
             flowerList.addAll(retFlowerList);
         }

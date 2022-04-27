@@ -23,8 +23,10 @@ public class ItemController {
         myListener.onClickListener(flower);
     }
 
-    private Flower flower;
     private MyListener myListener;
+    private Flower flower;
+
+
     public void setData(Flower flower, MyListener myListener) {
         this.flower = flower;
         this.myListener = myListener;
@@ -37,10 +39,7 @@ public class ItemController {
         catch (Exception e){
             System.out.println(e.getMessage());
         }
-
-
     }
-
     public void click(javafx.scene.input.MouseEvent mouseEvent) {
         myListener.onClickListener(flower);
     }
