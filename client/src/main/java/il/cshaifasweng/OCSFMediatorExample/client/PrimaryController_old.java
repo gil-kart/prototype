@@ -5,7 +5,7 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
-public class PrimaryController {
+public class PrimaryController_old {
 
     @FXML
     void sendWarning(ActionEvent event) {
