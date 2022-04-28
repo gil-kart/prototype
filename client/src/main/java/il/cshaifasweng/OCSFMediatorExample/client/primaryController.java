@@ -256,11 +256,11 @@ primaryController implements Initializable {
     void onPriceUpdate(ActionEvent event) {
         try {
             String newPrice;
-            newPrice = (textFieldPriceChange.getText());
+            newPrice = textFieldPriceChange.getText();
             try {
                 int new_converted_price = Integer.parseInt(newPrice, 10); // convert to base 10
                 flowerShown.setPrice(newPrice);
-                FlowerPrice.setText(newPrice );
+                FlowerPrice.setText(newPrice);
                 ItemController itemController = itemControllers.get(flowerShown.getId() - 1);
                 itemController.setPriceInCatalog(flowerShown);
                 textFieldPriceChange.clear();
@@ -268,8 +268,6 @@ primaryController implements Initializable {
                 priceUpdate.setVisible(false);
                 priceUpdateWarningLabel.setVisible(false);
                 sendPriceUpdatedItem(flowerShown, items);
-
-
             } catch (NumberFormatException e) {
                 textFieldPriceChange.clear();
                 priceUpdateWarningLabel.setVisible(true);
