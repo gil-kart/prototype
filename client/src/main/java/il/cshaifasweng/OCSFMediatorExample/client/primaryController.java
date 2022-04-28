@@ -200,6 +200,10 @@ primaryController implements Initializable {
             myListener = new MyListener() {
                 @Override
                 public void onClickListener(Flower flower) {
+                    textFieldPriceChange.setVisible(false);
+                    priceUpdateWarningLabel.setVisible(false);
+                    priceUpdate.setVisible(false);
+                    textFieldPriceChange.clear();
                     setChosenItem(flower);
                 }
             };
