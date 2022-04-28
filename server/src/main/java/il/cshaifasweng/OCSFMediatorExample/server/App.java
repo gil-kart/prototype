@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 import static il.cshaifasweng.OCSFMediatorExample.server.Utilities.getSessionFactory;
@@ -21,7 +22,9 @@ public class App {
     private static SimpleServer server;
 
     public static void main(String[] args) throws IOException {
-
+        InetAddress IP = InetAddress.getLocalHost();
+        String host_name = IP.getHostName();
+        System.out.println("RUNNING SERVER ON " + host_name + "...");
         System.out.println("SERVER: INITIALIZING SERVER");
         server = new SimpleServer(3000);
         System.out.println("SERVER: LISTENING");
