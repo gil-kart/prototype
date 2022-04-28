@@ -25,6 +25,10 @@ public class App extends Application {
 
     private static String[] arguments;
 
+    public static String[] getArguments() {
+        return arguments;
+    }
+
     private static Scene scene;
     @Override
     public void start(Stage stage) throws IOException {
