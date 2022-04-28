@@ -7,6 +7,9 @@ import org.greenrobot.eventbus.EventBus;
 import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,9 +47,11 @@ public class SimpleClient extends AbstractClient {
 		return !this.items.isEmpty();
 	}
 
-	public static SimpleClient getClient() {
+	public static SimpleClient getClient() throws IOException {
 		if (client == null) {
-			client = new SimpleClient("localhost", 3000);
+			//String ip = InetAddress.getByName("DanyP").getHostAddress();
+			String ip = "172.20.10.6";
+			client = new SimpleClient(ip, 3000);
 		}
 		return client;
 	}
