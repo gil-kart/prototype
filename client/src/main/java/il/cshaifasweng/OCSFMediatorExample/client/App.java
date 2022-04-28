@@ -19,7 +19,12 @@ import org.greenrobot.eventbus.Subscribe;
 /**
  * JavaFX App
  */
+
+
 public class App extends Application {
+
+    private static String[] arguments;
+
     private static Scene scene;
     @Override
     public void start(Stage stage) throws IOException {
@@ -59,6 +64,7 @@ public class App extends Application {
     }
 
 	public static void main(String[] args) {
+        arguments = args;
         launch();
     }
 

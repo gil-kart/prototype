@@ -11,3 +11,9 @@ Pay attention to the three modules:
 2. Run the server using the exec:java goal in the server module.
 3. Run the client using the javafx:run goal in the client module.
 4. Press the button and see what happens!
+
+## Lilach installation steps through maven:
+1. clean submodules, if there are target present
+2. install from parent directory
+3. pass to program the server host name
+4. enjoy.
