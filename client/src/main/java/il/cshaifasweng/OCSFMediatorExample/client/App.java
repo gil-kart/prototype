@@ -69,8 +69,10 @@ public class App extends Application {
     }
 
     private void closeWindowEvent(WindowEvent event) {
+        try{
+            stop();
+        }catch (Exception ignored){}
         System.out.println("Graceful termination, goodbye ;)");
         System.exit(0);
     }
-
 }
