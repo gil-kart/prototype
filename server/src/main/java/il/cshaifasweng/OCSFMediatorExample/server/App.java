@@ -72,8 +72,6 @@ public class App {
         itemList.add(item);
         item = new Item("שושן", 90, base_path + "lily.jpg");
         itemList.add(item);
-
-        // }
         return itemList;
     }
 }
